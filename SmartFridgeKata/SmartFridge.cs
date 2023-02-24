@@ -2,23 +2,42 @@
 
 public class SmartFridge
 {
-    public void SetCurrentDate(string s)
+    private readonly IPrinter _printer;
+    private readonly IRepository _repositoryObject;
+    private DateTime _currentDate;
+    private bool _doorIsOpened;
+
+    public SmartFridge(IPrinter printer, IRepository repositoryObject)
     {
-        throw new NotImplementedException();
+        _printer = printer;
+        _repositoryObject = repositoryObject;
+        _doorIsOpened = false;
+    }
+
+    public void SetCurrentDate(string date)
+    {
+        _currentDate = DateTime.Parse(date);
     }
 
     public void OpenDoor()
     {
-        throw new NotImplementedException();
+        _doorIsOpened = true;
     }
 
     public void AddItem(Item item)
     {
-        throw new NotImplementedException();
+        if (_doorIsOpened)
+        {
+            _repositoryObject.add(item);
+        }
     }
 
     public void CloseDoor()
     {
-        throw new NotImplementedException();
+        _doorIsOpened = false;
+    }
+
+    public void Summary()
+    {
     }
 }

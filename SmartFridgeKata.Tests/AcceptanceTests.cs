@@ -9,8 +9,9 @@ public class AcceptanceTests
     public void Test1()
     {
         var printer = new Mock<IPrinter>();
+        var repository = new Mock<IRepository>();
 
-        var smartFridgeKata = new SmartFridge();
+        var smartFridgeKata = new SmartFridge(printer.Object, repository.Object);
 
         smartFridgeKata.SetCurrentDate("23/02/2023");
         smartFridgeKata.OpenDoor();
@@ -19,6 +20,7 @@ public class AcceptanceTests
         smartFridgeKata.AddItem(new Item("Milk", "24/02/2023", "sealed"));
         smartFridgeKata.AddItem(new Item("Milk", "26/02/2023", "sealed"));
         smartFridgeKata.CloseDoor();
+        smartFridgeKata.Summary();
         
 
         printer.Verify(m => m.print("EXPIRED: Milk"));
